@@ -25,12 +25,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 public class CalendarLightningPage extends BasePage {
 
+    /**
+     * Web element by the calendar header.
+     */
     @FindBy(css = "div.calendarHeader")
-    WebElement calendarHeader;
+    private WebElement calendarHeader;
 
+    /**
+     * Web element by open the  event form.
+     */
     @FindBy(css = "button.new-event-button")
-    WebElement newEventBtn;
+    private WebElement newEventBtn;
 
+
+    /**
+     * Waits until the calendar page is loaded.
+     */
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         wait.until(ExpectedConditions.visibilityOf(calendarHeader));

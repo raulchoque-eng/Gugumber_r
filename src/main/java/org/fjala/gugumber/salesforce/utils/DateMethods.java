@@ -12,8 +12,8 @@
 
 package org.fjala.gugumber.salesforce.utils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import org.fjala.gugumber.core.selenium.utils.DriverMethod;
+
 import java.util.Date;
 
 /**
@@ -23,10 +23,48 @@ import java.util.Date;
  * @version 0.0.1
  */
 public class DateMethods {
-    public static String convertDateToString(final Date date, final String pattern) {
-        // Create an instance of SimpleDateFormat used for formatting
-        // the string representation of date according to the chosen pattern
-        DateFormat dateFormat = new SimpleDateFormat(pattern);
-        return dateFormat.format(date);
+    public static String getNextOneHour(final Date date) {
+        String resTime = "";
+        final String HOUR = "h:mm a";
+        String time = DriverMethod.convertDateToString(date, HOUR);
+        String[] dateHour = (time).split(":");
+        String[] minAndBeforeAfterMidday = dateHour[1].split(" ");
+        int hour = Integer.parseInt(dateHour[0]);
+        if ((1 <= hour) && (hour <= 11)) {
+            int nextHour = hour + 1;
+            resTime = Integer.toString(nextHour).concat(":00 " + minAndBeforeAfterMidday[1]);
+        } else {
+            if ((minAndBeforeAfterMidday[1].compareTo("AM")) == 0) {
+                resTime = "1:00 PM";
+            } else {
+                resTime = "1:00 AM";
+            }
+        }
+
+        return resTime;
+
     }
+
+    public static String getNextTwoHours(final Date date) {
+
+        String resTime = "";
+        final String HOUR = "h:mm a";
+        String time = DriverMethod.convertDateToString(date, HOUR);
+        String[] dateHour = (time).split(":");
+        String[] minAndBeforeAfterMidday = dateHour[1].split(" ");
+        int hour = Integer.parseInt(dateHour[0]);
+        if ((1 <= hour) && (hour <= 10)) {
+            int nextHour = hour + 2;
+            resTime = Integer.toString(nextHour).concat(":00 " + minAndBeforeAfterMidday[1]);
+        } else {
+            if ((minAndBeforeAfterMidday[1].compareTo("AM")) == 0) {
+                resTime = "1:00 PM";
+            } else {
+                resTime = "1:00 AM";
+            }
+        }
+
+        return resTime;
+    }
+
 }

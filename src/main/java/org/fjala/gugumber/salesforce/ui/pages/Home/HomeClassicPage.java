@@ -12,6 +12,7 @@
 
 package org.fjala.gugumber.salesforce.ui.pages.Home;
 
+import org.fjala.gugumber.salesforce.ui.pages.events.EventClassicForm;
 import org.fjala.gugumber.salesforce.ui.pages.events.EventDetailPage;
 import org.fjala.gugumber.salesforce.ui.pages.events.EventForm;
 import org.openqa.selenium.WebElement;
@@ -33,6 +34,12 @@ public class HomeClassicPage extends HomePage {
     private WebElement bodyHomePage;
 
     /**
+     * Web element to open the event form.
+     */
+    @FindBy(css = "div#homeCalendarSection input.btn")
+    private WebElement newEventBtn;
+
+    /**
      * Waits until page object is loaded.
      */
     @Override
@@ -52,6 +59,7 @@ public class HomeClassicPage extends HomePage {
 
     @Override
     public EventForm openEventForm() {
-        return null;
+        newEventBtn.click();
+        return new EventClassicForm();
     }
 }

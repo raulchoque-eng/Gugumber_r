@@ -12,17 +12,18 @@
 
 package org.fjala.gugumber.salesforce.ui.pages.events;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Set;
-
 import org.fjala.gugumber.core.StrategySetter;
+import org.fjala.gugumber.core.selenium.utils.DriverMethod;
 import org.fjala.gugumber.core.selenium.utils.DriverMethods;
 import org.fjala.gugumber.salesforce.entities.Event;
+import org.fjala.gugumber.salesforce.utils.DateMethods;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * EventLightningForm class.
@@ -33,63 +34,101 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class EventLightningForm extends EventForm {
 
 
+    /**
+     * Web element by validate the Event form is open..
+     */
     @FindBy(css = "div.modal-header h2.title")
-    WebElement titleFormLbl;
+    private WebElement titleFormLbl;
 
+    /**
+     * Web element by the event form.
+     */
     @FindBy(css = "div.modal-container slds-modal__container")
-    WebElement eventForm;
+    private WebElement eventForm;
 
-    @FindBy(xpath = "//input[starts-with(@id, 'input')]")
-    WebElement sunjectTxtb;
-
+    /**
+     * Web element by search a new user to assign event.
+     */
     @FindBy(css = "div.uiInput a.deleteAction")
-    WebElement closeLnk;
+    private WebElement closeLnk;
 
-    @FindBy(css = "div.slds-form input[title = \"Search People\"]")
-    WebElement searchPeopleTxtb;
-
+    /**
+     * Web element by the subject.
+     */
     @FindBy(css = "div.modal-body input[id ^= \"input\"]")
-    WebElement subjectCmbbx;
+    private WebElement subjectTxt;
 
-    @FindBy(css = "div.modal-body div div[role = \"none\"] ~div")
-    private WebElement subjectSelectCmbbx;
-
+    /**
+     * Web element by the contact.
+     */
     @FindBy(css = "div.modal-body input[title = \"Search Contacts\"]")
-    WebElement contactCmbbx;
+    private WebElement contactCmbbx;
 
+    /**
+     * Web element by the account.
+     */
     @FindBy(css = "div.modal-body input[title = \"Search Accounts\"]")
-    WebElement accountCmbbx;
+    private WebElement accountCmbbx;
 
+    /**
+     * Web element by the location.
+     */
     @FindBy(css = "div.modal-body div.uiInputText input.input")
-    WebElement locationTxt;
+    private WebElement locationTxt;
 
+    /**
+     * Web element by the start date.
+     */
     @FindBy(css = "div.modal-body div.slds-grid.slds-gutters_small:nth-of-type(2) div.dateTime-inputDate input")
-    WebElement startDateTxt;
+    private WebElement startDateTxt;
 
+    /**
+     * Web element by the start time.
+     */
     @FindBy(css = "div.modal-body div.slds-grid.slds-gutters_small:nth-of-type(2) div.dateTime-inputTime input")
-    WebElement startTimeTxt;
+    private WebElement startTimeTxt;
 
+    /**
+     * Web element by the end date.
+     */
     @FindBy(css = "div.modal-body div.slds-grid.slds-gutters_small:nth-of-type(3) div.dateTime-inputDate input")
-    WebElement endDateTxt;
+    private WebElement endDateTxt;
 
+    /**
+     * Web element by the end time.
+     */
     @FindBy(css = "div.modal-body div.slds-grid.slds-gutters_small:nth-of-type(3) div.dateTime-inputTime input")
-    WebElement endTimeTxt;
+    private WebElement endTimeTxt;
 
+    /**
+     * Web element by check all days.
+     */
     @FindBy(css = "div.modal-body input[type = \"checkbox\"]")
-    WebElement allDaysCbox;
+    private WebElement allDaysCbox;
 
+    /**
+     * Web element by the description.
+     */
     @FindBy(css = "span#quickTextKeyboardTip ~ textarea")
-    WebElement descriptionTxtar;
+    private WebElement descriptionTxtar;
 
+    /**
+     * Web element by the save the new event.
+     */
     @FindBy(css = "div.modal-footer button[title=\"Save\"]")
-    WebElement saveBtn;
+    private WebElement saveBtn;
 
+    /**
+     * Waits until the event form is loaded.
+     */
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         wait.until(ExpectedConditions.visibilityOf(titleFormLbl));
     }
 
     /**
+     * Sets the Assigned To.
+     *
      * @param username sets the "Assigned to" value.
      */
     public void setAssignedToUser(final String username) {
@@ -98,13 +137,17 @@ public class EventLightningForm extends EventForm {
     }
 
     /**
+     * Sets the Subject.
+     *
      * @param subject sets the "Subject" value.
      */
     public void setSubject(final String subject) {
-        subjectCmbbx.sendKeys(subject);
+        DriverMethod.setTxt(subjectTxt, subject);
     }
 
     /**
+     * Sets the Name.
+     *
      * @param nameContact sets the "Name" value.
      */
     public void setNameContact(final String nameContact) {
@@ -113,6 +156,8 @@ public class EventLightningForm extends EventForm {
     }
 
     /**
+     * Sets the Related To.
+     *
      * @param nameAccount sets the "Related To" value.
      */
     public void setRelatedToAccount(final String nameAccount) {
@@ -121,6 +166,8 @@ public class EventLightningForm extends EventForm {
     }
 
     /**
+     * Sets the Location.
+     *
      * @param location sets the "Location" value.
      */
     public void setLocation(final String location) {
@@ -128,14 +175,22 @@ public class EventLightningForm extends EventForm {
     }
 
     /**
+     * Sets the Description.
+     *
      * @param description sets the "Description" value.
      */
-    public void setDescription(final  String description) {
+    public void setDescription(final String description) {
         DriverMethods.setTxt(descriptionTxtar, description);
     }
 
+    /**
+     * Creates a new event.
+     *
+     * @param event     by create a new event.
+     * @param keysEvent by references the values.
+     */
     @Override
-    public void createEvent(final Event event,final Set<String> keysEvent) {
+    public void createEvent(final Event event, final Set<String> keysEvent) {
         final HashMap<String, StrategySetter> strategyMap = composesStrategyMap(event);
         keysEvent.forEach(key -> {
             strategyMap.get(key).executeMethod();
@@ -162,23 +217,33 @@ public class EventLightningForm extends EventForm {
         return strategyMap;
     }
 
+    /**
+     * Sets the Star date and Time.
+     *
+     * @param eventStartDate by gets the date and time.
+     */
     private void setStartDate(final Date eventStartDate) {
-
-        Date test1 = new Date();
-        System.out.println("Start Calendar: " + Calendar.getInstance() + "; " + "Start Date: " + test1);
         final String pattern = "M/dd/yyyy";
-        final String HOUR = "h:mm a";
         DriverMethods.setTxt(startDateTxt, DriverMethods.convertDateToString(eventStartDate, pattern));
-        DriverMethods.setTxt(startTimeTxt, DriverMethods.convertDateToString(eventStartDate, HOUR));
+        DriverMethods.setTxt(startTimeTxt, DateMethods.getNextOneHour(eventStartDate));
     }
 
+    /**
+     * Sets the End Date and Time.
+     *
+     * @param eventEndDate by gets the date and time.
+     */
     private void setEndDate(final Date eventEndDate) {
         final String pattern = "M/dd/yyyy";
-        final String HOUR = "h:mm a";
         DriverMethods.setTxt(endDateTxt, DriverMethods.convertDateToString(eventEndDate, pattern));
-        DriverMethods.setTxt(endTimeTxt, DriverMethods.convertDateToString(eventEndDate, HOUR));
+        DriverMethods.setTxt(endTimeTxt, DateMethods.getNextTwoHours(eventEndDate));
     }
 
+    /**
+     * Gets the event form.
+     *
+     * @return a instance from EventForm class.
+     */
     @Override
     public EventForm getEventForm() {
         return new EventLightningForm();
