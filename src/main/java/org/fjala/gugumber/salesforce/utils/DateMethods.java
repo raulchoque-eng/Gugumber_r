@@ -23,48 +23,26 @@ import java.util.Date;
  * @version 0.0.1
  */
 public class DateMethods {
-    public static String getNextOneHour(final Date date) {
+    public static String getHourBefore(final Date date, int addHour) {
         String resTime = "";
         final String HOUR = "h:mm a";
         String time = DriverMethod.convertDateToString(date, HOUR);
         String[] dateHour = (time).split(":");
         String[] minAndBeforeAfterMidday = dateHour[1].split(" ");
         int hour = Integer.parseInt(dateHour[0]);
-        if ((1 <= hour) && (hour <= 11)) {
-            int nextHour = hour + 1;
+        int maxHour = 12 - addHour;
+        if ((1 <= hour) && (hour <= maxHour)) {
+            int nextHour = hour + addHour;
             resTime = Integer.toString(nextHour).concat(":00 " + minAndBeforeAfterMidday[1]);
         } else {
+            int restHour = hour - maxHour;
             if ((minAndBeforeAfterMidday[1].compareTo("AM")) == 0) {
-                resTime = "1:00 PM";
+
+                resTime = Integer.toString(restHour) + ":00 PM";
             } else {
-                resTime = "1:00 AM";
+                resTime = Integer.toString(restHour) + ":00 AM";
             }
         }
-
-        return resTime;
-
-    }
-
-    public static String getNextTwoHours(final Date date) {
-
-        String resTime = "";
-        final String HOUR = "h:mm a";
-        String time = DriverMethod.convertDateToString(date, HOUR);
-        String[] dateHour = (time).split(":");
-        String[] minAndBeforeAfterMidday = dateHour[1].split(" ");
-        int hour = Integer.parseInt(dateHour[0]);
-        if ((1 <= hour) && (hour <= 10)) {
-            int nextHour = hour + 2;
-            resTime = Integer.toString(nextHour).concat(":00 " + minAndBeforeAfterMidday[1]);
-        } else {
-            if ((minAndBeforeAfterMidday[1].compareTo("AM")) == 0) {
-                resTime = "1:00 PM";
-            } else {
-                resTime = "1:00 AM";
-            }
-        }
-
         return resTime;
     }
-
 }

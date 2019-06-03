@@ -71,4 +71,5 @@ public class DriverMethod {
      * TODO method que valida que un elemento este en el DOM cambiando el implicit wait (1)
      * TODO validate method that a webElement is in the DOM change the implicit wait (1)
      */
+
 }

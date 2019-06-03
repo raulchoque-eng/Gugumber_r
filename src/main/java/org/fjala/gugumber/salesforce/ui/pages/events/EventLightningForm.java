@@ -17,6 +17,7 @@ import org.fjala.gugumber.core.selenium.utils.DriverMethod;
 import org.fjala.gugumber.core.selenium.utils.DriverMethods;
 import org.fjala.gugumber.salesforce.entities.Event;
 import org.fjala.gugumber.salesforce.utils.DateMethods;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -223,9 +224,9 @@ public class EventLightningForm extends EventForm {
      * @param eventStartDate by gets the date and time.
      */
     private void setStartDate(final Date eventStartDate) {
-        final String pattern = "M/dd/yyyy";
+        final String pattern = "dd-MM-yyyy";
         DriverMethods.setTxt(startDateTxt, DriverMethods.convertDateToString(eventStartDate, pattern));
-        DriverMethods.setTxt(startTimeTxt, DateMethods.getNextOneHour(eventStartDate));
+        setInputFieldJavaScript(startTimeTxt, DateMethods.getHourBefore(eventStartDate, 12));
     }
 
     /**
@@ -234,9 +235,21 @@ public class EventLightningForm extends EventForm {
      * @param eventEndDate by gets the date and time.
      */
     private void setEndDate(final Date eventEndDate) {
-        final String pattern = "M/dd/yyyy";
+        final String pattern = "dd-MM-yyyy";
         DriverMethods.setTxt(endDateTxt, DriverMethods.convertDateToString(eventEndDate, pattern));
-        DriverMethods.setTxt(endTimeTxt, DateMethods.getNextTwoHours(eventEndDate));
+        setInputFieldJavaScript(endTimeTxt, DateMethods.getHourBefore(eventEndDate, 14));
+    }
+
+
+    /**
+     * Cleans the text box and set new value using javascript.
+     *
+     * @param element - element to set text.
+     * @param text    - Value to fill in input.
+     */
+    public void setInputFieldJavaScript(final WebElement element, final String text) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = ''", element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = arguments[1]", element, text);
     }
 
     /**
