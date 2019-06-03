@@ -42,13 +42,13 @@ tasks.withType(Test) {
     ignoreFailures = false
 }
 
-task executionFeatures(type: Test) {
-    options {
-        useDefaultListeners = false
-        jvmArgs = {'Decucumber options= ' +
-                '--glue org.fjala.gugumber.steps ' +
-                            '--plugin pretty ' +
-                '--plugin json:target/cucumber.json ' +
-                'classpath: ' + featureFolders + ' ' + cucumberOptions }
-    }
-}
+//task executionFeatures(type: Test) {
+//    options {
+//        useDefaultListeners = false
+//        jvmArgs = {'Decucumber options= ' +
+//                '--glue org.fjala.gugumber.steps ' +
+//                            '--plugin pretty ' +
+//                '--plugin json:target/cucumber.json ' +
+//                'classpath: ' + featureFolders + ' ' + cucumberOptions }
+//    }
+//}
