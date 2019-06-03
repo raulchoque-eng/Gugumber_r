@@ -20,6 +20,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -40,9 +41,8 @@ public class EventClassicForm extends EventForm {
     /**
      * Web element by search a new user to assign event.
      */
-    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(2) a")
+    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(2) img.lookupIcon")
     private WebElement searchUserImg;
-
 //    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(2) span.lookupInput > input")
 //    private WebElement assignedUserTxt;
 
@@ -111,18 +111,11 @@ public class EventClassicForm extends EventForm {
 
     @Override
     public void createEvent(final Event event,final Set<String> keyEvent) {
-        System.out.println(event.getAssignedToUser());
         setAssignedToUser(event.getAssignedToUser());
-        System.out.println(event.getLocation());
         setLocation(event.getLocation());
-        System.out.println(event.getSubject());
         setSubject(event.getSubject());
-        System.out.println(event.getNameContact());
         setNameContact(event.getNameContact());
-        System.out.println(event.getDescription());
         setDescription(event.getDescription());
-//        System.out.println(event.getAssignedToUser());
-//        setAssignedToUser(event.getAssignedToUser());
     }
 
     @Override
@@ -139,34 +132,70 @@ public class EventClassicForm extends EventForm {
      * @param username sets the "Assigned to" value.
      */
     public void setAssignedToUser(final String username) {
-        // Store the current window handle
-        String winHandleBefore = driver.getWindowHandle();
-        https:
-//na132.salesforce.com/00U/e?retURL=%2Fhome%2Fhome.jsp
+        searchUserImg.click();
+        String parentWindowHandle = driver.getWindowHandle();
+        Set<String> windows = driver.getWindowHandles();
+        driver.switchTo().window(new LinkedList<>(windows).getLast());
+        driver.switchTo().frame("resultsFrame");
+        driver.findElement(By.cssSelector("table.list tr:nth-child(2) th:nth-child(1) a")).click();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        System.out.println("parent windows =" + winHandleBefore);
-
-        // Perform the click operation that opens new window
-        driver.findElement(By.cssSelector("div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(2) img.lookupIcon")).click();
-
-        // Switch to new window opened
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        }
-
-        // Perform the actions on new window
-//        driver.findElement(By.id("lksrch")).sendKeys("User To Event");
-        System.out.println("child windows = " + driver.getTitle());
-        // Close the new window, if that window no more required
-        driver.close();
-
-        // Switch back to original browser (first window)
-        driver.switchTo().window(winHandleBefore);
-
-        // Continue with original browser (first window)
-//         DriverMethod.setTxt(assignedUserTxt, username);
+        driver.switchTo().window(parentWindowHandle);
+//        if (parentWindowHandle != null) {
+//            driver.switchTo().window(parentWindowHandle);
+//        } else {
+//            driver.switchTo().defaultContent();
+//        }
     }
+
+//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//        System.out.println("second driver: " + driver.getTitle());
+//        driver.findElement(By.id("lksrch")).sendKeys(username);
+
+
+//        // Store the current window handle
+//        String winHandleBefore = driver.getWindowHandle();
+//        https:
+////na132.salesforce.com/00U/e?retURL=%2Fhome%2Fhome.jsp
+//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//        System.out.println("parent windows =" + winHandleBefore);
+//
+//        // Perform the click operation that opens new window
+//        driver.findElement(By.cssSelector("div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(2) img.lookupIcon")).click();
+//
+//        // Switch to new window opened
+//        for (String winHandle : driver.getWindowHandles()) {
+//            driver.switchTo().window(winHandle);
+//            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//        }
+//
+//        // Perform the actions on new window
+////        driver.findElement(By.id("lksrch")).sendKeys("User To Event");
+//        System.out.println("child windows = " + driver.getTitle());
+//        // Close the new window, if that window no more required
+//        driver.close();
+//
+//        // Switch back to original browser (first window)
+//        driver.switchTo().window(winHandleBefore);
+//
+//        // Continue with original browser (first window)
+////         DriverMethod.setTxt(assignedUserTxt, username);
+
+
+//    /**
+//     * Switches to recent window opened.
+//     */
+//    protected void switchToRecentWindowOpened() {
+//        parentWindowHandle = driver.getWindowHandle();
+//        Set<String> windows = driver.getWindowHandles();
+//        driver.switchTo().window(new LinkedList<>(windows).getLast());
+//    }
+//    protected void switchToParentWindowHandle() {
+//        if (parentWindowHandle != null) {
+//            driver.switchTo().window(parentWindowHandle);
+//        } else {
+//            driver.switchTo().defaultContent();
+//        }
+//    }
 
     /**
      * Sets the Location.

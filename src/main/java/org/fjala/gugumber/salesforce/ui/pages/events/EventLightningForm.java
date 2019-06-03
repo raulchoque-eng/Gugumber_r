@@ -119,6 +119,8 @@ public class EventLightningForm extends EventForm {
     @FindBy(css = "div.modal-footer button[title=\"Save\"]")
     private WebElement saveBtn;
 
+    @FindBy(css = "[class='forceVisualMessageQueue'] [class='toastMessage slds-text-heading--small forceActionsText']")
+    private WebElement messajeSuccessfull;
     /**
      * Waits until the event form is loaded.
      */

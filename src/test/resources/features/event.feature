@@ -8,7 +8,8 @@ Feature: Event manage
   Scenario: Create a new Event with required information
     When I open the New Event form
     And I add a new Event with the following information
-      | Assigned To | User To Event      |
+#      | Assigned To | User To Event      |
+      | Assigned To | user one           |
       | Subject     | Call               |
       | Name        | Contact Event      |
       | Related To  | Account Event      |
