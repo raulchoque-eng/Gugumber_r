@@ -43,8 +43,6 @@ public class EventClassicForm extends EventForm {
      */
     @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(2) img.lookupIcon")
     private WebElement searchUserImg;
-//    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(2) span.lookupInput > input")
-//    private WebElement assignedUserTxt;
 
     /**
      * Web element by the location.
@@ -94,11 +92,17 @@ public class EventClassicForm extends EventForm {
     @FindBy(id = "EndDateTime_time")
     private WebElement endTimeTxt;
 
-    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(6) td:nth-child(2) select")
-    private WebElement relatedToCmbbx;
-
-    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(6) td:nth-child(2) span.lookupInput [title=\"Related To\"]")
-    private WebElement getRelatedToTxt;
+//    /**
+//     * Web element by search an related to user.
+//     */
+//    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(6) td:nth-child(2) select")
+//    private WebElement relatedToCmbbx;
+//
+//    /**
+//     * Web element by select the related to user.
+//     */
+//    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(6) td:nth-child(2) span.lookupInput [title=\"Related To\"]")
+//    private WebElement relatedToTxt;
 
     /**
      * Web element by the Description.
@@ -106,32 +110,46 @@ public class EventClassicForm extends EventForm {
     @FindBy(css = "td.last.data2Col > textarea")
     private WebElement descriptionTxtar;
 
+    /**
+     * Web element by the event save.
+     */
     @FindBy(css = "td#topButtonRow [value = \" Save \"]")
     private WebElement saveEventBtn;
 
+    /**
+     * Creates a new Event with the event information.
+     *
+     * @param event    is a event to get the information.
+     * @param keyEvent is a set of key of references.
+     */
     @Override
-    public void createEvent(final Event event,final Set<String> keyEvent) {
+    public void createEvent(final Event event, final Set<String> keyEvent) {
         setAssignedToUser(event.getAssignedToUser());
         setLocation(event.getLocation());
         setSubject(event.getSubject());
         setNameContact(event.getNameContact());
         setDescription(event.getDescription());
     }
+//
+//    @Override
+//    public EventForm getEventForm() {
+//        return new EventClassicForm();
+//    }
 
-    @Override
-    public EventForm getEventForm() {
-        return new EventClassicForm();
-    }
-
+    /**
+     * Waits until the Event classical form is uploaded.
+     */
     @Override
     protected void waitUntilPageObjectIsLoaded() {
         wait.until(ExpectedConditions.visibilityOf(eventForm));
     }
 
     /**
-     * @param username sets the "Assigned to" value.
+     * Sets the assignedToUser in a Event classic form sending a string.
+     *
+     * @param assignedToUser as a string.
      */
-    public void setAssignedToUser(final String username) {
+    public void setAssignedToUser(final String assignedToUser) {
         searchUserImg.click();
         String parentWindowHandle = driver.getWindowHandle();
         Set<String> windows = driver.getWindowHandles();
@@ -140,107 +158,57 @@ public class EventClassicForm extends EventForm {
         driver.findElement(By.cssSelector("table.list tr:nth-child(2) th:nth-child(1) a")).click();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.switchTo().window(parentWindowHandle);
-//        if (parentWindowHandle != null) {
-//            driver.switchTo().window(parentWindowHandle);
-//        } else {
-//            driver.switchTo().defaultContent();
-//        }
     }
 
-//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-//        System.out.println("second driver: " + driver.getTitle());
-//        driver.findElement(By.id("lksrch")).sendKeys(username);
-
-
-//        // Store the current window handle
-//        String winHandleBefore = driver.getWindowHandle();
-//        https:
-////na132.salesforce.com/00U/e?retURL=%2Fhome%2Fhome.jsp
-//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-//        System.out.println("parent windows =" + winHandleBefore);
-//
-//        // Perform the click operation that opens new window
-//        driver.findElement(By.cssSelector("div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(2) img.lookupIcon")).click();
-//
-//        // Switch to new window opened
-//        for (String winHandle : driver.getWindowHandles()) {
-//            driver.switchTo().window(winHandle);
-//            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-//        }
-//
-//        // Perform the actions on new window
-////        driver.findElement(By.id("lksrch")).sendKeys("User To Event");
-//        System.out.println("child windows = " + driver.getTitle());
-//        // Close the new window, if that window no more required
-//        driver.close();
-//
-//        // Switch back to original browser (first window)
-//        driver.switchTo().window(winHandleBefore);
-//
-//        // Continue with original browser (first window)
-////         DriverMethod.setTxt(assignedUserTxt, username);
-
-
-//    /**
-//     * Switches to recent window opened.
-//     */
-//    protected void switchToRecentWindowOpened() {
-//        parentWindowHandle = driver.getWindowHandle();
-//        Set<String> windows = driver.getWindowHandles();
-//        driver.switchTo().window(new LinkedList<>(windows).getLast());
-//    }
-//    protected void switchToParentWindowHandle() {
-//        if (parentWindowHandle != null) {
-//            driver.switchTo().window(parentWindowHandle);
-//        } else {
-//            driver.switchTo().defaultContent();
-//        }
-//    }
-
     /**
-     * Sets the Location.
+     * Sets the location in a Event classic form sending a string.
      *
-     * @param location sets the "Assigned to" value.
+     * @param location as a string.
      */
     public void setLocation(final String location) {
         DriverMethod.setTxt(locationTxt, location);
     }
 
     /**
-     * Sets the Subject.
+     * Sets the subject in a Event classic form sending a string.
      *
-     * @param subject sets the "Assigned to" value.
+     * @param subject as a string.
      */
     public void setSubject(final String subject) {
         DriverMethod.setTxt(subjectTxt, subject);
     }
 
     /**
-     * @param startDate sets the "Assigned to" value.
+     * Sets the startDate in a Event classic form sending a string by validate the date.
+     *
+     * @param startDate as a Date.
      */
     public void setStarDate(final Date startDate) {
     }
 
-    /**
-     * Sets the Name.
-     *
-     * @param contactName sets the "Assigned to" value.
-     */
-    public void setNameContact(final String contactName) {
 
-        DriverMethod.setTxt(nameTxt, contactName);
+    /**
+     * Sets the nameContact in a Event classic form sending a string.
+     *
+     * @param nameContact as a string.
+     */
+    public void setNameContact(final String nameContact) {
+
+        DriverMethod.setTxt(nameTxt, nameContact);
     }
 
     /**
-     * @param endDate sets the "Assigned to" value.
+     * Sets the endDate in a Event classic form sending a string by validate the date.
+     *
+     * @param endDate as a Date.
      */
     public void setEndDate(final Date endDate) {
     }
 
     /**
-     * Sets the Description.
+     * Sets the description in a Event classic form sending a string.
      *
-     * @param description sets the "Assigned to" value.
+     * @param description as a string.
      */
     public void setDescription(final String description) {
         DriverMethod.setTxt(descriptionTxtar, description);

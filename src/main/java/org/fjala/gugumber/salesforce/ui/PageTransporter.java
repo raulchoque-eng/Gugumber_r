@@ -12,16 +12,15 @@
 
 package org.fjala.gugumber.salesforce.ui;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.fjala.gugumber.core.selenium.WebDriverManager;
 import org.fjala.gugumber.salesforce.common.ReaderApplicationProperties;
-import org.fjala.gugumber.salesforce.ui.pages.events.CalendarLightningPage;
 import org.fjala.gugumber.salesforce.ui.pages.Home.HomePage;
 import org.fjala.gugumber.salesforce.ui.pages.LoginPage;
-
+import org.fjala.gugumber.salesforce.ui.pages.events.CalendarLightningPage;
 import org.openqa.selenium.WebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * PageTransporter class.
@@ -119,6 +118,11 @@ public class PageTransporter {
         return PageLayoutFactory.getHomePageManager();
     }
 
+    /**
+     * Navigate to Calendar lightning page.
+     *
+     * @return a CalendarLightningPage class.
+     */
     public  CalendarLightningPage navigateToCalendarPage() {
         switch (PAGE_LAYOUT_TYPE) {
             case LIGHTNING:

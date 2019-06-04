@@ -107,6 +107,11 @@ public class PageLayoutFactory {
         return accountsPage;
     }
 
+    /**
+     * Returns a Calendar lightning page.
+     *
+     * @return a CalendarLightningPage class.
+     */
     public static CalendarLightningPage getCalendarPage() {
         final CalendarLightningPage calendarPage;
         switch (PAGE_LAYOUT_TYPE) {

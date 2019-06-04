@@ -26,7 +26,7 @@ public class Context {
     private Contact contact;
 
     /**
-     * Saves value of variable "event", to create an Event.
+     * Event to manage in the context.
      */
     private Event event;
 
@@ -37,7 +37,7 @@ public class Context {
     private Account account;
 
     /**
-     * Saves value of variable "user", to create an User.
+     * User to manage in the context.
      */
     private User user;
 

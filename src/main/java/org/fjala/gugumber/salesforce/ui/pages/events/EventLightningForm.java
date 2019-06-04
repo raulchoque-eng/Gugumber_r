@@ -13,7 +13,6 @@
 package org.fjala.gugumber.salesforce.ui.pages.events;
 
 import org.fjala.gugumber.core.StrategySetter;
-import org.fjala.gugumber.core.selenium.utils.DriverMethod;
 import org.fjala.gugumber.core.selenium.utils.DriverMethods;
 import org.fjala.gugumber.salesforce.entities.Event;
 import org.fjala.gugumber.salesforce.utils.DateMethods;
@@ -119,8 +118,8 @@ public class EventLightningForm extends EventForm {
     @FindBy(css = "div.modal-footer button[title=\"Save\"]")
     private WebElement saveBtn;
 
-    @FindBy(css = "[class='forceVisualMessageQueue'] [class='toastMessage slds-text-heading--small forceActionsText']")
-    private WebElement messajeSuccessfull;
+//    @FindBy(css = "[class='forceVisualMessageQueue'] [class='toastMessage slds-text-heading--small forceActionsText']")
+//    private WebElement messajeSuccessfull;
     /**
      * Waits until the event form is loaded.
      */
@@ -130,9 +129,9 @@ public class EventLightningForm extends EventForm {
     }
 
     /**
-     * Sets the Assigned To.
+     * Sets the assignedToUser in a Event form sending a string.
      *
-     * @param username sets the "Assigned to" value.
+     * @param username as a string.
      */
     public void setAssignedToUser(final String username) {
         final String locatorBySelect = "[title = \"nameTitle\"]";
@@ -140,18 +139,18 @@ public class EventLightningForm extends EventForm {
     }
 
     /**
-     * Sets the Subject.
+     * Sets the subject in a Event lightning form sending a string.
      *
      * @param subject sets the "Subject" value.
      */
     public void setSubject(final String subject) {
-        DriverMethod.setTxt(subjectTxt, subject);
+        DriverMethods.setTxt(subjectTxt, subject);
     }
 
     /**
-     * Sets the Name.
+     * Sets the nameContact in a Event lightning form sending a string.
      *
-     * @param nameContact sets the "Name" value.
+     * @param nameContact as a string.
      */
     public void setNameContact(final String nameContact) {
         final String locatorBySelect = "[title = \"nameTitle\"]";
@@ -159,35 +158,35 @@ public class EventLightningForm extends EventForm {
     }
 
     /**
-     * Sets the Related To.
+     * Sets the relatedToAccount in a Event lightning form sending a string.
      *
-     * @param nameAccount sets the "Related To" value.
+     * @param relatedToAccount as a string.
      */
-    public void setRelatedToAccount(final String nameAccount) {
+    public void setRelatedToAccount(final String relatedToAccount) {
         final String locatorBySelect = "[title = \"nameTitle\"]";
-        DriverMethods.selectCmb(accountCmbbx, driver, locatorBySelect, nameAccount);
+        DriverMethods.selectCmb(accountCmbbx, driver, locatorBySelect, relatedToAccount);
     }
 
     /**
-     * Sets the Location.
+     * Sets the location in a Event lightning form sending a string.
      *
-     * @param location sets the "Location" value.
+     * @param location as a string.
      */
     public void setLocation(final String location) {
         DriverMethods.setTxt(locationTxt, location);
     }
 
     /**
-     * Sets the Description.
+     * Sets the description in a Event lightning form sending a string.
      *
-     * @param description sets the "Description" value.
+     * @param description as a string.
      */
     public void setDescription(final String description) {
         DriverMethods.setTxt(descriptionTxtar, description);
     }
 
     /**
-     * Creates a new event.
+     * Creates a new Event with the event information.
      *
      * @param event     by create a new event.
      * @param keysEvent by references the values.
@@ -221,25 +220,25 @@ public class EventLightningForm extends EventForm {
     }
 
     /**
-     * Sets the Star date and Time.
+     * Sets the startDate in a Event lightning form sending a string by validate the date.
      *
-     * @param eventStartDate by gets the date and time.
+     * @param startDate as a Date.
      */
-    private void setStartDate(final Date eventStartDate) {
+    private void setStartDate(final Date startDate) {
         final String pattern = "dd-MM-yyyy";
-        DriverMethods.setTxt(startDateTxt, DriverMethods.convertDateToString(eventStartDate, pattern));
-        setInputFieldJavaScript(startTimeTxt, DateMethods.getHourBefore(eventStartDate, 12));
+        DriverMethods.setTxt(startDateTxt, DriverMethods.convertDateToString(startDate, pattern));
+        setInputFieldJavaScript(startTimeTxt, DateMethods.getHourBefore(startDate, 2));
     }
 
     /**
-     * Sets the End Date and Time.
+     * Sets the endDate in a Event lightning form sending a string by validate the date.
      *
-     * @param eventEndDate by gets the date and time.
+     * @param eventEndDate as a Date.
      */
     private void setEndDate(final Date eventEndDate) {
         final String pattern = "dd-MM-yyyy";
         DriverMethods.setTxt(endDateTxt, DriverMethods.convertDateToString(eventEndDate, pattern));
-        setInputFieldJavaScript(endTimeTxt, DateMethods.getHourBefore(eventEndDate, 14));
+        setInputFieldJavaScript(endTimeTxt, DateMethods.getHourBefore(eventEndDate, 3));
     }
 
 
@@ -254,13 +253,13 @@ public class EventLightningForm extends EventForm {
         ((JavascriptExecutor) driver).executeScript("arguments[0].value = arguments[1]", element, text);
     }
 
-    /**
-     * Gets the event form.
-     *
-     * @return a instance from EventForm class.
-     */
-    @Override
-    public EventForm getEventForm() {
-        return new EventLightningForm();
-    }
+//    /**
+//     * Gets the event form.
+//     *
+//     * @return a instance from EventForm class.
+//     */
+//    @Override
+//    public EventForm getEventForm() {
+//        return new EventLightningForm();
+//    }
 }

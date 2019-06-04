@@ -25,13 +25,19 @@ import java.util.Set;
  */
 public abstract class EventForm extends BasePage {
 
+    /**
+     * Creates a new Event with the information of event.
+     *
+     * @param event    is a event to get the information.
+     * @param keyEvent is a set of key of references.
+     */
     public abstract void createEvent(Event event, Set<String> keyEvent);
 
-    /**
-     * Gets an EventForm instance.
-     * Implements this method in its sub-classes.
-     *
-     * @return an instance HomePage.
-     */
-    public abstract EventForm getEventForm();
+//    /**
+//     * Gets an EventForm instance.
+//     * Implements this method in its sub-classes.
+//     *
+//     * @return an instance HomePage.
+//     */
+//    public abstract EventForm getEventForm();
 }

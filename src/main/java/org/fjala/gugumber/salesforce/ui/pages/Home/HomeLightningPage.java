@@ -30,7 +30,6 @@ public class HomeLightningPage extends HomePage {
     /**
      * Saves value of WebElement "appLauncherBtn", to validate HomeLightningPage.
      */
-//    @FindBy(css = "div.branding-user-profile img[class = \"icon noicon\"]")
     @FindBy(css = "button.slds-button div.slds-icon-waffle")
     WebElement appLauncherBtn;
 
@@ -77,7 +76,7 @@ public class HomeLightningPage extends HomePage {
     /**
      * Open the Event form to create an Event.
      *
-     * @return an instance EventForm.
+     * @return a EventForm class.
      */
     @Override
     public EventForm openEventForm() {

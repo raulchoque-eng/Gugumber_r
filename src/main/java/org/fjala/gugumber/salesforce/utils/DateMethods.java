@@ -12,7 +12,7 @@
 
 package org.fjala.gugumber.salesforce.utils;
 
-import org.fjala.gugumber.core.selenium.utils.DriverMethod;
+import org.fjala.gugumber.core.selenium.utils.DriverMethods;
 
 import java.util.Date;
 
@@ -23,10 +23,18 @@ import java.util.Date;
  * @version 0.0.1
  */
 public class DateMethods {
+
+    /**
+     * Returns the hour with a format as a string.
+     *
+     * @param date    is the information by get a time.
+     * @param addHour is information by add hours.
+     * @return a hour with a format as a string..
+     */
     public static String getHourBefore(final Date date, int addHour) {
         String resTime = "";
         final String HOUR = "h:mm a";
-        String time = DriverMethod.convertDateToString(date, HOUR);
+        String time = DriverMethods.convertDateToString(date, HOUR);
         String[] dateHour = (time).split(":");
         String[] minAndBeforeAfterMidday = dateHour[1].split(" ");
         int hour = Integer.parseInt(dateHour[0]);
