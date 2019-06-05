@@ -10,7 +10,7 @@
  * with Jala Foundation.
  */
 
-package org.fjala.gugumber.salesforce.ui.pages.events;
+package org.fjala.gugumber.salesforce.ui.pages.event;
 
 import org.fjala.gugumber.core.StrategySetter;
 import org.fjala.gugumber.core.selenium.utils.DriverMethods;

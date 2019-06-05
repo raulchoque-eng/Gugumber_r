@@ -16,7 +16,7 @@ import org.fjala.gugumber.core.selenium.WebDriverManager;
 import org.fjala.gugumber.salesforce.common.ReaderApplicationProperties;
 import org.fjala.gugumber.salesforce.ui.pages.Home.HomePage;
 import org.fjala.gugumber.salesforce.ui.pages.LoginPage;
-import org.fjala.gugumber.salesforce.ui.pages.events.CalendarLightningPage;
+import org.fjala.gugumber.salesforce.ui.pages.event.CalendarLightningPage;
 import org.openqa.selenium.WebDriver;
 
 import java.net.MalformedURLException;

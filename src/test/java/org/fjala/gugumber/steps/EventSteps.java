@@ -21,9 +21,9 @@ import org.fjala.gugumber.salesforce.ui.PageLayoutType;
 import org.fjala.gugumber.salesforce.ui.PageTransporter;
 import org.fjala.gugumber.salesforce.ui.pages.Home.HomeClassicPage;
 import org.fjala.gugumber.salesforce.ui.pages.Home.HomePage;
-import org.fjala.gugumber.salesforce.ui.pages.events.CalendarLightningPage;
-import org.fjala.gugumber.salesforce.ui.pages.events.EventDetailPage;
-import org.fjala.gugumber.salesforce.ui.pages.events.EventFormAbstract;
+import org.fjala.gugumber.salesforce.ui.pages.event.CalendarLightningPage;
+import org.fjala.gugumber.salesforce.ui.pages.event.EventDetailPage;
+import org.fjala.gugumber.salesforce.ui.pages.event.EventFormAbstract;
 
 import java.util.Map;
 import java.util.Set;

@@ -12,9 +12,9 @@
 
 package org.fjala.gugumber.salesforce.ui.pages.Home;
 
-import org.fjala.gugumber.salesforce.ui.pages.events.EventClassicForm;
-import org.fjala.gugumber.salesforce.ui.pages.events.EventDetailPage;
-import org.fjala.gugumber.salesforce.ui.pages.events.EventFormAbstract;
+import org.fjala.gugumber.salesforce.ui.pages.event.EventClassicForm;
+import org.fjala.gugumber.salesforce.ui.pages.event.EventDetailPage;
+import org.fjala.gugumber.salesforce.ui.pages.event.EventFormAbstract;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
