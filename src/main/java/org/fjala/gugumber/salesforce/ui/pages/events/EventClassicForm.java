@@ -12,17 +12,19 @@
 
 package org.fjala.gugumber.salesforce.ui.pages.events;
 
-import org.fjala.gugumber.core.selenium.utils.DriverMethod;
+import org.fjala.gugumber.core.StrategySetter;
+import org.fjala.gugumber.core.selenium.utils.DriverMethods;
 import org.fjala.gugumber.salesforce.entities.Event;
+import org.fjala.gugumber.salesforce.utils.DateMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * EventClassicForm class.
@@ -30,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * @author Raul Choque
  * @version 0.0.1
  */
-public class EventClassicForm extends EventForm {
+public class EventClassicForm extends EventFormAbstract {
 
     /**
      * Web element by validate the Event form is open.
@@ -45,6 +47,12 @@ public class EventClassicForm extends EventForm {
     private WebElement searchUserImg;
 
     /**
+     * Web element by assigned to user.
+     */
+    @FindBy(id = "evt1")
+    private WebElement assignedToUserTxt;
+
+    /**
      * Web element by the location.
      */
     @FindBy(css = "div#ep div.pbBody > div:nth-child(4) > table tr:nth-child(1) td:nth-child(4) > input")
@@ -53,8 +61,12 @@ public class EventClassicForm extends EventForm {
     /**
      * Web element by the subject.
      */
+//    @FindBy(css = SUBJECT_TEXT_CSS)
     @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(2) td:nth-child(2) input")
     private WebElement subjectTxt;
+
+//    private static final String SUBJECT_TEXT_CSS = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(2) td:nth-child(2) input";
+//    private static final By SUBJECT_TXT_LOCATOR = By.cssSelector(SUBJECT_TEXT_CSS);
 
     /**
      * Web element by the start date.
@@ -92,17 +104,17 @@ public class EventClassicForm extends EventForm {
     @FindBy(id = "EndDateTime_time")
     private WebElement endTimeTxt;
 
-//    /**
-//     * Web element by search an related to user.
-//     */
-//    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(6) td:nth-child(2) select")
-//    private WebElement relatedToCmbbx;
-//
-//    /**
-//     * Web element by select the related to user.
-//     */
-//    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(6) td:nth-child(2) span.lookupInput [title=\"Related To\"]")
-//    private WebElement relatedToTxt;
+    /**
+     * Web element by search an related to user.
+     */
+    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(6) td:nth-child(2) select")
+    private WebElement relatedToAccountCmbbx;
+
+    /**
+     * Web element by select the related to user.
+     */
+    @FindBy(css = "div#ep > div.pbBody > div:nth-child(4) > table tr:nth-child(6) td:nth-child(2) span.lookupInput [title=\"Related To\"]")
+    private WebElement relatedToAccountTxt;
 
     /**
      * Web element by the Description.
@@ -119,22 +131,41 @@ public class EventClassicForm extends EventForm {
     /**
      * Creates a new Event with the event information.
      *
-     * @param event    is a event to get the information.
-     * @param keyEvent is a set of key of references.
+     * @param event     is a event to get the information.
+     * @param keysEvent is a set of key of references.
      */
     @Override
-    public void createEvent(final Event event, final Set<String> keyEvent) {
-        setAssignedToUser(event.getAssignedToUser());
-        setLocation(event.getLocation());
-        setSubject(event.getSubject());
-        setNameContact(event.getNameContact());
-        setDescription(event.getDescription());
+    public void createEvent(final Event event, final Set<String> keysEvent) {
+        final HashMap<String, StrategySetter> strategyMap = composesStrategyMap(event);
+        keysEvent.forEach(key -> {
+            strategyMap.get(key).executeMethod();
+            System.out.println("Event UI: " + key);
+        });
+//        setAssignedToUser(event.getAssignedToUser());
+//        setLocation(event.getLocation());
+//        setSubject(event.getSubject());
+//        setNameContact(event.getNameContact());
+//        setDescription(event.getDescription());
     }
-//
-//    @Override
-//    public EventForm getEventForm() {
-//        return new EventClassicForm();
-//    }
+
+    /**
+     * Returns an Strategy Map with the "newEvent" parameter.
+     *
+     * @param event is an instance Event.
+     * @return an instance HashMap with keys and methods to run.
+     */
+    private HashMap<String, StrategySetter> composesStrategyMap(final Event event) {
+        final HashMap<String, StrategySetter> strategyMap = new HashMap<>();
+        strategyMap.put("Assigned To", () -> setAssignedToUser(event.getAssignedToUser()));
+        strategyMap.put("Subject", () -> setSubject(event.getSubject()));
+        strategyMap.put("Name", () -> setNameContact(event.getNameContact()));
+        strategyMap.put("Related To", () -> setRelatedToAccount(event.getRelatedToAccount()));
+        strategyMap.put("Location", () -> setLocation(event.getLocation()));
+        strategyMap.put("Start Date", () -> setStartDate(event.getStartDate()));
+        strategyMap.put("End Date", () -> setEndDate(event.getEndDate()));
+        strategyMap.put("Description", () -> setDescription(event.getDescription()));
+        return strategyMap;
+    }
 
     /**
      * Waits until the Event classical form is uploaded.
@@ -156,8 +187,15 @@ public class EventClassicForm extends EventForm {
         driver.switchTo().window(new LinkedList<>(windows).getLast());
         driver.switchTo().frame("resultsFrame");
         driver.findElement(By.cssSelector("table.list tr:nth-child(2) th:nth-child(1) a")).click();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.switchTo().window(parentWindowHandle);
+//        assignedToUserTxt.click();
+//        assignedToUserTxt.clear();
+//        assignedToUserTxt.sendKeys(assignedToUser);
+
+//        DriverMethods.setTxt(assignedToUserTxt, assignedToUser);
+//        WebElement webElement = driver.findElement(By.xpath(""));//You can use xpath, ID or name whatever you like
+//        searchUserImg.sendKeys(Keys.TAB);
     }
 
     /**
@@ -166,7 +204,7 @@ public class EventClassicForm extends EventForm {
      * @param location as a string.
      */
     public void setLocation(final String location) {
-        DriverMethod.setTxt(locationTxt, location);
+        DriverMethods.setTxt(locationTxt, location);
     }
 
     /**
@@ -175,7 +213,10 @@ public class EventClassicForm extends EventForm {
      * @param subject as a string.
      */
     public void setSubject(final String subject) {
-        DriverMethod.setTxt(subjectTxt, subject);
+
+        // fIND THE ELEMENT BECAUSE sTALEELEMENT eXCEPTION IS THROWN
+//        subjectTxt = driver.findElement(SUBJECT_TXT_LOCATOR);
+        DriverMethods.setTxt(subjectTxt, subject);
     }
 
     /**
@@ -183,9 +224,11 @@ public class EventClassicForm extends EventForm {
      *
      * @param startDate as a Date.
      */
-    public void setStarDate(final Date startDate) {
+    public void setStartDate(final Date startDate) {
+        final String pattern = "dd-MM-yyyy";
+        DriverMethods.setTxt(startDateTxt, DriverMethods.convertDateToString(startDate, pattern));
+        DriverMethods.setTxt(startTimeTxt, DateMethods.getHourBefore(startDate, 2));
     }
-
 
     /**
      * Sets the nameContact in a Event classic form sending a string.
@@ -193,8 +236,7 @@ public class EventClassicForm extends EventForm {
      * @param nameContact as a string.
      */
     public void setNameContact(final String nameContact) {
-
-        DriverMethod.setTxt(nameTxt, nameContact);
+        DriverMethods.setTxt(nameTxt, nameContact);
     }
 
     /**
@@ -203,6 +245,20 @@ public class EventClassicForm extends EventForm {
      * @param endDate as a Date.
      */
     public void setEndDate(final Date endDate) {
+        final String pattern = "dd-MM-yyyy";
+        DriverMethods.setTxt(endDateTxt, DriverMethods.convertDateToString(endDate, pattern));
+        DriverMethods.setTxt(endTimeTxt, DateMethods.getHourBefore(endDate, 3));
+    }
+
+    /**
+     * Sets the relatedToAccount in a Event classic form sending a string.
+     *
+     * @param relatedToAccount as a string.
+     */
+    public void setRelatedToAccount(final String relatedToAccount) {
+        final String locatorBySelect = "//option[contains(text(), 'nameTitle')]";
+        DriverMethods.selectCmb(relatedToAccountCmbbx, driver, locatorBySelect, "Account");
+        DriverMethods.setTxt(relatedToAccountTxt, relatedToAccount);
     }
 
     /**
@@ -211,6 +267,6 @@ public class EventClassicForm extends EventForm {
      * @param description as a string.
      */
     public void setDescription(final String description) {
-        DriverMethod.setTxt(descriptionTxtar, description);
+        DriverMethods.setTxt(descriptionTxtar, description);
     }
 }

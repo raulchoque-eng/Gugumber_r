@@ -47,11 +47,11 @@ public class CalendarLightningPage extends BasePage {
     }
 
     /**
-     * Opens EventForm from Calendar page.
+     * Opens EventFormAbstract from Calendar page.
      *
-     * @return an instance EventForm.
+     * @return an instance EventFormAbstract.
      */
-    public EventForm openEventForm() {
+    public EventFormAbstract openEventForm() {
         newEventBtn.click();
         return new EventLightningForm();
     }

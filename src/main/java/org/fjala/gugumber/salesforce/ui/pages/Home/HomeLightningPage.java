@@ -14,7 +14,7 @@ package org.fjala.gugumber.salesforce.ui.pages.Home;
 
 import org.fjala.gugumber.salesforce.ui.pages.events.CalendarLightningPage;
 import org.fjala.gugumber.salesforce.ui.pages.events.EventDetailPage;
-import org.fjala.gugumber.salesforce.ui.pages.events.EventForm;
+import org.fjala.gugumber.salesforce.ui.pages.events.EventFormAbstract;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -76,10 +76,10 @@ public class HomeLightningPage extends HomePage {
     /**
      * Open the Event form to create an Event.
      *
-     * @return a EventForm class.
+     * @return a EventFormAbstract class.
      */
     @Override
-    public EventForm openEventForm() {
+    public EventFormAbstract openEventForm() {
         final CalendarLightningPage calendarPage = openCalendarLightningPage();
         return calendarPage.openEventForm();
     }

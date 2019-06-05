@@ -40,15 +40,18 @@ tasks.withType(Test) {
     reports.html.enabled = true
 
     ignoreFailures = false
+
+    systemProperty "browser", browser
+    systemProperty "layoutpage", layoutpage
 }
 
-//task executionFeatures(type: Test) {
-//    options {
-//        useDefaultListeners = false
-//        jvmArgs = {'Decucumber options= ' +
-//                '--glue org.fjala.gugumber.steps ' +
-//                            '--plugin pretty ' +
-//                '--plugin json:target/cucumber.json ' +
-//                'classpath: ' + featureFolders + ' ' + cucumberOptions }
-//    }
-//}
+task executeFeatures(type: Test) {
+    options {
+        useDefaultListeners = false
+        jvmArgs = ['-Dcucumber options= ' +
+                           '--glue org.fjala.gugumber.steps ' +
+                           '--plugin pretty ' +
+                           '--plugin json:target/cucumber.json ' +
+                           'classpath:' + featureFolders + ' ' + cucumberOptions]
+    }
+}

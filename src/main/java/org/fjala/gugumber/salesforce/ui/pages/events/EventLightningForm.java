@@ -31,7 +31,7 @@ import java.util.Set;
  * @author Raul Choque
  * @version 0.0.1
  */
-public class EventLightningForm extends EventForm {
+public class EventLightningForm extends EventFormAbstract {
 
 
     /**
@@ -120,6 +120,7 @@ public class EventLightningForm extends EventForm {
 
 //    @FindBy(css = "[class='forceVisualMessageQueue'] [class='toastMessage slds-text-heading--small forceActionsText']")
 //    private WebElement messajeSuccessfull;
+
     /**
      * Waits until the event form is loaded.
      */
@@ -233,12 +234,12 @@ public class EventLightningForm extends EventForm {
     /**
      * Sets the endDate in a Event lightning form sending a string by validate the date.
      *
-     * @param eventEndDate as a Date.
+     * @param endDate as a Date.
      */
-    private void setEndDate(final Date eventEndDate) {
+    private void setEndDate(final Date endDate) {
         final String pattern = "dd-MM-yyyy";
-        DriverMethods.setTxt(endDateTxt, DriverMethods.convertDateToString(eventEndDate, pattern));
-        setInputFieldJavaScript(endTimeTxt, DateMethods.getHourBefore(eventEndDate, 3));
+        DriverMethods.setTxt(endDateTxt, DriverMethods.convertDateToString(endDate, pattern));
+        setInputFieldJavaScript(endTimeTxt, DateMethods.getHourBefore(endDate, 3));
     }
 
 
@@ -256,10 +257,10 @@ public class EventLightningForm extends EventForm {
 //    /**
 //     * Gets the event form.
 //     *
-//     * @return a instance from EventForm class.
+//     * @return a instance from EventFormAbstract class.
 //     */
 //    @Override
-//    public EventForm getEventForm() {
+//    public EventFormAbstract getEventForm() {
 //        return new EventLightningForm();
 //    }
 }

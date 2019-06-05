@@ -1,5 +1,5 @@
 /*
- * @(#) EventForm.java Copyright (c) 2019 Jala Foundation.
+ * @(#) EventFormAbstract.java Copyright (c) 2019 Jala Foundation.
  * 2643 Av. Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
  * All rights reserved.
  *
@@ -18,12 +18,12 @@ import org.fjala.gugumber.salesforce.ui.pages.BasePage;
 import java.util.Set;
 
 /**
- * EventForm class
+ * EventFormAbstract class
  *
  * @author Raúl Choque
  * @version 0.0.1
  */
-public abstract class EventForm extends BasePage {
+public abstract class EventFormAbstract extends BasePage {
 
     /**
      * Creates a new Event with the information of event.
@@ -34,10 +34,10 @@ public abstract class EventForm extends BasePage {
     public abstract void createEvent(Event event, Set<String> keyEvent);
 
 //    /**
-//     * Gets an EventForm instance.
+//     * Gets an EventFormAbstract instance.
 //     * Implements this method in its sub-classes.
 //     *
 //     * @return an instance HomePage.
 //     */
-//    public abstract EventForm getEventForm();
+//    public abstract EventFormAbstract getEventForm();
 }

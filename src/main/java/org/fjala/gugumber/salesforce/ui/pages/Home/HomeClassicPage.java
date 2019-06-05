@@ -14,7 +14,7 @@ package org.fjala.gugumber.salesforce.ui.pages.Home;
 
 import org.fjala.gugumber.salesforce.ui.pages.events.EventClassicForm;
 import org.fjala.gugumber.salesforce.ui.pages.events.EventDetailPage;
-import org.fjala.gugumber.salesforce.ui.pages.events.EventForm;
+import org.fjala.gugumber.salesforce.ui.pages.events.EventFormAbstract;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -36,7 +36,7 @@ public class HomeClassicPage extends HomePage {
     /**
      * Web element to open the event form.
      */
-    @FindBy(css = "div#homeCalendarSection input.btn")
+    @FindBy(name = "newEvent")
     private WebElement newEventBtn;
 
     /**
@@ -58,7 +58,7 @@ public class HomeClassicPage extends HomePage {
     }
 
     @Override
-    public EventForm openEventForm() {
+    public EventFormAbstract openEventForm() {
         newEventBtn.click();
         return new EventClassicForm();
     }

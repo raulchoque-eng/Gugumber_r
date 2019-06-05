@@ -49,7 +49,11 @@ public class DriverMethods {
      */
     public static  void selectCmb(final WebElement webElement, final WebDriver driver, final String replaceCmb, final String text) {
         webElement.click();
-        driver.findElement(By.cssSelector(replaceCmb.replace("nameTitle", text))).click();
+        if (replaceCmb.contains("//")) {
+            driver.findElement(By.xpath(replaceCmb.replace("nameTitle", text))).click();
+        } else {
+            driver.findElement(By.cssSelector(replaceCmb.replace("nameTitle", text))).click();
+        }
     }
 
     /**
@@ -66,6 +70,9 @@ public class DriverMethods {
         return dateFormat.format(date);
     }
 
-    //TODO method que valida que un elemento este en el DOM cambiando el implicit wait
-    //TODO validate method that a webElement is in the DOM change the implicit wait
+    /**
+     * TODO method to clear a checkbox
+     * TODO method que valida que un elemento este en el DOM cambiando el implicit wait (1)
+     * TODO validate method that a webElement is in the DOM change the implicit wait (1)
+     */
 }

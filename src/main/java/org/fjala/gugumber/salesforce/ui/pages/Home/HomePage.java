@@ -12,9 +12,9 @@
 
 package org.fjala.gugumber.salesforce.ui.pages.Home;
 
-import org.fjala.gugumber.salesforce.ui.pages.events.EventDetailPage;
-import org.fjala.gugumber.salesforce.ui.pages.events.EventForm;
 import org.fjala.gugumber.salesforce.ui.pages.BasePage;
+import org.fjala.gugumber.salesforce.ui.pages.events.EventDetailPage;
+import org.fjala.gugumber.salesforce.ui.pages.events.EventFormAbstract;
 
 
 /**
@@ -43,7 +43,7 @@ public abstract class HomePage extends BasePage {
      * Open the Event form to create an Event.
      * Implements this method in its sub-classes.
      *
-     * @return an instance EventForm.
+     * @return an instance EventFormAbstract.
      */
-    public abstract EventForm openEventForm();
+    public abstract EventFormAbstract openEventForm();
 }

@@ -23,7 +23,7 @@ import org.fjala.gugumber.salesforce.ui.pages.Home.HomeClassicPage;
 import org.fjala.gugumber.salesforce.ui.pages.Home.HomePage;
 import org.fjala.gugumber.salesforce.ui.pages.events.CalendarLightningPage;
 import org.fjala.gugumber.salesforce.ui.pages.events.EventDetailPage;
-import org.fjala.gugumber.salesforce.ui.pages.events.EventForm;
+import org.fjala.gugumber.salesforce.ui.pages.events.EventFormAbstract;
 
 import java.util.Map;
 import java.util.Set;
@@ -43,7 +43,7 @@ public class EventSteps {
     /**
      * Variable for the even form.
      */
-    private EventForm eventForm;
+    private EventFormAbstract eventForm;
 
     /**
      * Variable for the even.

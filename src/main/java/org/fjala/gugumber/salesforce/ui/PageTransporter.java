@@ -124,14 +124,7 @@ public class PageTransporter {
      * @return a CalendarLightningPage class.
      */
     public  CalendarLightningPage navigateToCalendarPage() {
-        switch (PAGE_LAYOUT_TYPE) {
-            case LIGHTNING:
-                String url = "https://na132.lightning.force.com/lightning/o/Event/home";
-                goToURL(url);
-                break;
-            default:
-                throw new  RuntimeException(MESSAGE_FOR_UNKNOWN_LAYOUT);
-        }
-        return PageLayoutFactory.getCalendarPage();
+        goToURL(ReaderApplicationProperties.getInstance().getAppProperties().get("calendar-url"));
+        return new CalendarLightningPage();
     }
 }
